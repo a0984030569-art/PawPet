@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Midnight Healing Lounge | 深夜心靈療癒與選片館</title>
+    <title>Paw Pet Spa | 溫馨寵物美容與安心托育</title>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #121016;
-            --card-bg: #1a1722;
-            --accent-glow: #d4af37;
-            --accent-purple: #9b7fd9;
-            --text-main: #e2dedb;
-            --text-muted: #9e95a8;
-            --border-color: #2e283d;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            --bg-color: #faf7f2;
+            --card-bg: #ffffff;
+            --accent-color: #b8865b;
+            --accent-hover: #9c6c46;
+            --text-main: #3d352a;
+            --text-muted: #8c8275;
+            --border-color: #ebdccc;
+            --shadow: 0 10px 30px rgba(184, 134, 91, 0.08);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Zen Maru Gothic', 'PingFang TC', sans-serif;
+            font-family: 'Zen Maru Gothic', sans-serif;
             transition: all 0.3s ease;
         }
 
@@ -29,305 +29,220 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
-            padding: 40px 20px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .container {
-            max-width: 850px;
+        /* 導覽列 */
+        nav {
             width: 100%;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 20px;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 25px;
         }
 
-        h1 {
-            color: var(--accent-glow);
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            text-decoration: none;
         }
 
-        p.subtitle {
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
             color: var(--text-muted);
             font-size: 0.95rem;
+            font-weight: 500;
         }
 
-        /* 心情選擇區塊 */
-        .mood-section {
+        .nav-links a.active, .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 900px;
+            width: 100%;
+            padding: 40px 20px;
+        }
+
+        /* Hero 環境輪播區 */
+        .hero {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 30px;
+            overflow: hidden;
             box-shadow: var(--shadow);
             margin-bottom: 30px;
+        }
+
+        .hero-slider {
+            width: 100%;
+            height: 380px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-content {
+            padding: 40px;
             text-align: center;
         }
 
-        .mood-section h2 {
-            color: var(--accent-purple);
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+        .hero-content h1 {
+            color: var(--accent-color);
+            font-size: 2.2rem;
+            margin-bottom: 12px;
         }
 
-        .mood-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-        }
-
-        .mood-btn {
-            background-color: #121016;
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 14px 15px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-weight: bold;
-        }
-
-        .mood-btn:hover, .mood-btn.active {
-            background-color: var(--accent-purple);
-            color: #fff;
-            border-color: var(--accent-purple);
-            transform: translateY(-2px);
-        }
-
-        /* 療癒結果顯示面板 */
-        .result-panel {
-            display: none;
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .result-panel.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .result-title {
-            color: var(--accent-glow);
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .prescription-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .prescription-card {
-            background-color: #121016;
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .prescription-card h4 {
-            color: var(--accent-purple);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .prescription-card p {
-            color: var(--text-main);
-            font-size: 1rem;
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
             line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* AI 提示詞區塊 */
-        .prompt-section {
+        .btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        /* 特色亮點卡片 */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 25px 30px;
+            border-radius: 16px;
+            padding: 30px;
             box-shadow: var(--shadow);
+            text-align: center;
         }
 
-        .prompt-section h3 {
-            color: var(--accent-glow);
+        .feature-card h3 {
+            color: var(--accent-color);
             font-size: 1.1rem;
             margin-bottom: 10px;
         }
 
-        .prompt-container {
-            position: relative;
-            margin-top: 10px;
-        }
-
-        .prompt-box {
-            background-color: #121016;
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 15px 120px 15px 20px;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: #d4af37;
-            white-space: pre-wrap;
-            line-height: 1.5;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background-color: var(--border-color);
-            color: var(--accent-glow);
-            border: 1px solid var(--accent-glow);
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .copy-btn:hover {
-            background-color: var(--accent-glow);
-            color: var(--bg-color);
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         footer {
             text-align: center;
-            margin-top: 40px;
+            padding: 30px 20px;
             color: var(--text-muted);
             font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            width: 100%;
         }
     </style>
 </head>
 <body>
 
+    <!-- 導覽列 -->
+    <nav>
+        <a href="index.html" class="logo">🐾 Paw Pet Spa</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">首頁</a>
+            <a href="about.html">關於我們</a>
+            <a href="contact.html">預約諮詢</a>
+        </div>
+    </nav>
+
     <div class="container">
-        <header>
-            <h1>🌙 Midnight Healing Lounge</h1>
-            <p class="subtitle">深夜心靈療癒與沉浸式選片館 ☕✨</p>
-        </header>
-
-        <!-- 心情選擇區 -->
-        <div class="mood-section">
-            <h2>✨ 此刻的妳，心裡是什麼感覺呢？</h2>
-            <div class="mood-grid">
-                <button class="mood-btn" onclick="selectMood('tired')">🌧️ 疲憊想放空</button>
-                <button class="mood-btn" onclick="selectMood('anxious')">🌀 有點小焦慮</button>
-                <button class="mood-btn" onclick="selectMood('cozy')">☕ 享受孤獨平靜</button>
-                <button class="mood-btn" onclick="selectMood('touched')">💫 需要被同理感動</button>
+        <!-- Hero 環境輪播區 -->
+        <div class="hero">
+            <div class="hero-slider">
+                <!-- 請將圖片分別命名並放在同個資料夾：hero-grooming.jpg, hero-playarea.jpg, hero-relaxation.jpg -->
+                <img class="hero-slide active" src="hero-grooming.jpg" alt="專業美容區">
+                <img class="hero-slide" src="hero-playarea.jpg" alt="不關籠遊戲等待區">
+                <img class="hero-slide" src="hero-relaxation.jpg" alt="溫馨休息角落">
+            </div>
+            <div class="hero-content">
+                <h1>給寶貝最溫柔的寵愛時光 🤎</h1>
+                <p>以頂級天然洗護與完全不關籠的自在空間，讓每一隻毛小孩在沒有壓力的環境下享受洗香香。開心玩耍、快樂等待爸媽接回家！</p>
+                <a href="contact.html" class="btn">立即預約專屬時段</a>
             </div>
         </div>
 
-        <!-- 療癒結果顯示面板 -->
-        <div id="resultPanel" class="result-panel">
-            <div class="result-title" id="resultTitle">🌿 專屬深夜療癒處方箋</div>
-            <div class="prescription-grid">
-                <div class="prescription-card">
-                    <h4>🎥 推薦療癒選片 / 動畫</h4>
-                    <p id="movieText">-</p>
-                </div>
-                <div class="prescription-card">
-                    <h4>🎵 深夜放鬆氛圍提案</h4>
-                    <p id="musicText">-</p>
-                </div>
-                <div class="prescription-card">
-                    <h4>✨ 寫給妳的深夜解憂金句</h4>
-                    <p id="quoteText">-</p>
-                </div>
+        <!-- 核心特色亮點 -->
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>🏡 全程不關籠安心空間</h3>
+                <p>告別冰冷鐵籠！店內設有舒適的自由活動遊戲區，讓寶貝在等待爸媽來接的時間裡開心社交、自在放鬆。</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌿 頂級低敏天然洗護</h3>
+                <p>嚴選植物萃取、溫和不刺激的寵物專用洗毛精，細心呵護每一吋敏感肌膚與毛髮健康。</p>
+            </div>
+            <div class="feature-card">
+                <h3>✂️ 專業手藝與耐心陪伴</h3>
+                <p>資深美容師以溫柔、不勉強的安撫手法進行修剪，給予毛小孩滿滿的安全感與耐心陪伴。</p>
             </div>
         </div>
-
-        <!-- AI 專屬互動提示詞 -->
-        <div class="prompt-section">
-            <h3>🤖 AI 深夜心靈導師指令 (Prompt)</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">複製下方指令，隨時跟 AI 訴說妳的心情，獲取專屬的療癒選片與安慰：</p>
-            <div class="prompt-container">
-                <button class="copy-btn" onclick="copyPrompt('healingPrompt', this)">一鍵複製指令</button>
-                <div class="prompt-box" id="healingPrompt">你現在是一位溫柔、充滿同理心且懂心靈療癒的深夜導師。當使用者向你傾訴今天的心情或疲憊時，請用溫暖、不說教且充滿安撫力量的語氣傾聽，並為其推薦一部暖心電影或動畫（例如類似《腦筋急轉彎》或溫馨小品），給予溫柔的擁抱與力量。</div>
-            </div>
-        </div>
-
-        <footer>
-            &copy; 2026 Midnight Healing Lounge. All Rights Reserved. 🌙
-        </footer>
     </div>
 
+    <footer>
+        &copy; 2026 Paw Pet Spa. All Rights Reserved. 🐾
+    </footer>
+
     <script>
-        const healingData = {
-            tired: {
-                title: "🌧️ 疲憊想放空の療癒處方",
-                movie: "《腦筋急轉彎 (Inside Out)》—— 擁抱偶爾的憂傷與空白，允許自己停下來，也是一種前進。",
-                music: "輕柔舒緩的 Lofi Piano（搭配一杯熱牛奶或無咖啡因花草茶）",
-                quote: "「今天真的辛苦囉！不需要隨時隨地都保持完美，把燈調暗、好好睡一覺，世界明天依然會等妳。」"
-            },
-            anxious: {
-                title: "🌀 安定心神的溫柔擁抱",
-                movie: "《靈魂急轉彎 (Soul)》—— 火花不是人生目標，用心感受當下微風吹過的感覺，妳就已經很有價值了。",
-                music: "大自然雨聲白噪音 / 療癒系大提琴演奏曲",
-                quote: "「焦慮的時候，把注意力放回呼吸。吸氣、吐氣，事情會一件一件順利解決的，別怕。」"
-            },
-            cozy: {
-                title: "☕ 享受獨處的深夜微光",
-                movie: "《小森林》—— 細細品味生活中的一粥一飯、一草一木，把步調慢下來，享受純粹的靜謐。",
-                music: "法國咖啡廳輕爵士 (Cafe Jazz) 或溫暖木吉他指彈",
-                quote: "「孤獨是最好的奢侈品。在這段只屬於妳的深夜時光裡，跟自己好好對話吧。」"
-            },
-            touched: {
-                title: "💫 溫暖同理的感動時刻",
-                movie: "《奇跡男孩 (Wonder)》—— 當世界對妳不夠溫柔時，選擇用善良與堅定擁抱自己的內心。",
-                music: "溫暖柔和的吉他伴奏與輕聲呢喃曲風",
-                quote: "「內心柔軟的人，總是擁有最強大的力量。讓情緒自然流動，明天的妳會閃閃發光。」"
-            }
-        };
-
-        function selectMood(moodKey) {
-            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            const panel = document.getElementById('resultPanel');
-            const titleEl = document.getElementById('resultTitle');
-            const movieEl = document.getElementById('movieText');
-            const musicEl = document.getElementById('musicText');
-            const quoteEl = document.getElementById('quoteText');
-
-            const data = healingData[moodKey];
-            titleEl.innerHTML = `🌿 ${data.title}`;
-            movieEl.innerText = data.movie;
-            musicEl.innerText = data.music;
-            quoteEl.innerText = data.quote;
-
-            panel.classList.add('active');
+        // 3秒自動輪播環境圖片
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        
+        function nextSlide() {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
         }
 
-        function copyPrompt(elementId, btn) {
-            const text = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = btn.innerText;
-                btn.innerText = "已複製成功！";
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                }, 2000);
-            });
-        }
+        setInterval(nextSlide, 3000);
     </script>
 </body>
 </html>
