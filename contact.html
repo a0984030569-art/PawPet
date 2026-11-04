@@ -264,6 +264,81 @@
             box-shadow: 0 15px 25px rgba(158, 123, 95, 0.3);
         }
 
+        /* 🌸 可愛彈跳視窗 (Modal) 樣式 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(61, 53, 42, 0.4);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(158, 123, 95, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-box h3 {
+            color: var(--accent-color);
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .modal-box p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .modal-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 35px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
         /* 頁尾 */
         footer {
             text-align: center;
@@ -321,49 +396,63 @@
         <!-- 預約表單 -->
         <div class="contact-container">
             <h1>線上預約與諮詢表單</h1>
-            <p class="subtitle">填寫以下寶貝與您的聯絡資訊，送出後將直接開啟信箱寄送預約單！</p>
+            <p class="subtitle">填寫以下寶貝與您的聯絡資訊，送出後訊息將直接發送到管理員信箱！</p>
 
             <div class="notice-box">
                 💡 <strong>貼心提醒：</strong>本店採全預約制，為了維護所有毛寶貝與工作人員的安全，<strong>恕不接待會咬人的狗狗</strong>。所有寶貝在等待接回期間皆享有全程不關籠的自由遊戲時光！
             </div>
             
-            <form id="mailForm">
+            <form id="ajax-form">
+                <!-- Web3Forms 專屬 Access Key，會直接將信寄到妳的 Gmail -->
+                <input type="hidden" name="access_key" value="7e54117b-6c4b-4f93-876a-54316d3f82f0">
+                <input type="hidden" name="subject" value="【Paw Pet Spa】收到新的預約與諮詢訊息！">
+
                 <div class="form-group">
                     <label for="ownerName">毛爸/毛媽大名</label>
-                    <input type="text" id="ownerName" required placeholder="例如：林小姐">
+                    <input type="text" id="ownerName" name="毛爸毛媽大名" required placeholder="例如：林小姐">
                 </div>
 
-                <div class="file-group form-group">
+                <div class="form-group">
                     <label for="phone">連絡電話</label>
-                    <input type="tel" id="phone" required placeholder="例如：0912-345-678">
+                    <input type="tel" id="phone" name="連絡電話" required placeholder="例如：0912-345-678">
                 </div>
 
                 <div class="form-group">
                     <label for="petInfo">毛孩名字與品種</label>
-                    <input type="text" id="petInfo" required placeholder="例如：巧克力 / 博美犬">
+                    <input type="text" id="petInfo" name="毛孩與品種" required placeholder="例如：巧克力 / 博美犬">
                 </div>
 
                 <div class="form-group">
                     <label for="serviceType">預約服務項目</label>
-                    <select id="serviceType" required>
+                    <select id="serviceType" name="預約服務項目" required>
                         <option value="">請選擇服務項目</option>
-                        <option value="精緻基礎洗護 (NT$ 600起)">精緻基礎洗護 (NT$ 600起)</option>
-                        <option value="頂級造型大美容（含當月主題寫真，NT$ 1,200起）">頂級造型大美容（含當月主題寫真，NT$ 1,200起）</option>
+                        <option value="精緻基礎洗護">精緻基礎洗護 (NT$ 600起)</option>
+                        <option value="頂級造型大美容">頂級造型大美容（含當月主題寫真，NT$ 1,200起）</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="date">希望預約日期</label>
-                    <input type="date" id="date" required>
+                    <input type="date" id="date" name="預約日期" required>
                 </div>
 
                 <div class="form-group">
                     <label for="message">備註或寶貝特殊需求（個性、過敏原等）</label>
-                    <textarea id="message" rows="4" placeholder="例如：個性溫和，對特定洗劑較敏感..."></textarea>
+                    <textarea id="message" name="備註需求" rows="4" placeholder="例如：個性溫和，對特定洗劑較敏感..."></textarea>
                 </div>
 
-                <button type="submit" class="submit-btn">確認送出預約諮詢</button>
+                <button type="submit" class="submit-btn" id="submit-btn">確認送出預約諮詢</button>
             </form>
+        </div>
+    </div>
+
+    <!-- 🌸 可愛彈跳視窗 (Modal) -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-box">
+            <div class="modal-icon">🐶✨</div>
+            <h3>預約諮詢已送出！</h3>
+            <p>謝謝您的預約！資料已成功寄出，我們將會盡快與您聯繫確認專屬時段 🤎</p>
+            <button class="modal-btn" id="closeModalBtn">太棒了，我知道囉！</button>
         </div>
     </div>
 
@@ -372,29 +461,54 @@
     </footer>
 
     <script>
-        document.getElementById('mailForm').addEventListener('submit', function(e) {
+        const form = document.getElementById('ajax-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const modalOverlay = document.getElementById('successModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        form.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const ownerName = document.getElementById('ownerName').value;
-            const phone = document.getElementById('phone').value;
-            const petInfo = document.getElementById('petInfo').value;
-            const serviceType = document.getElementById('serviceType').value;
-            const date = document.getElementById('date').value;
-            const message = document.getElementById('message').value;
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = "0.7";
+            submitBtn.textContent = "正在發送信件...";
 
-            const recipient = "a0984030569@gmail.com";
-            const subject = encodeURIComponent("【Paw Pet Spa】收到新的預約與諮詢訊息！");
-            const body = encodeURIComponent(
-                `毛爸/毛媽大名: ${ownerName}\n` +
-                `連絡電話: ${phone}\n` +
-                `毛孩名字與品種: ${petInfo}\n` +
-                `預約服務項目: ${serviceType}\n` +
-                `希望預約日期: ${date}\n` +
-                `備註需求: ${message}`
-            );
+            const formData = new FormData(form);
 
-            // 直接觸發郵件軟體寄信，100% 成功送達妳的信箱
-            window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+            // 透過穩定度極高的 Web3Forms 寄信
+            fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                body: formData
+            })
+            .then(async (response) => {
+                let json = await response.json();
+                if (response.status == 200) {
+                    modalOverlay.classList.add('active'); // 彈出可愛視窗
+                    form.reset();
+                } else {
+                    alert("❌ 發送失敗：" + json.message);
+                }
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+                submitBtn.textContent = "確認送出預約諮詢";
+            })
+            .catch(error => {
+                alert("❌ 發生網路錯誤，請稍後再試。");
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = "1";
+                submitBtn.textContent = "確認送出預約諮詢";
+            });
+        });
+
+        // 點擊彈窗按鈕關閉視窗
+        closeModalBtn.addEventListener('click', function() {
+            modalOverlay.classList.remove('active');
+        });
+
+        // 點擊彈窗外部背景也能關閉
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
         });
     </script>
 
