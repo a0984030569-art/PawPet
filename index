@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Healing Lounge | 深夜心靈療癒與選片館</title>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121016;
+            --card-bg: #1a1722;
+            --accent-glow: #d4af37;
+            --accent-purple: #9b7fd9;
+            --text-main: #e2dedb;
+            --text-muted: #9e95a8;
+            --border-color: #2e283d;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Zen Maru Gothic', 'PingFang TC', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 25px;
+        }
+
+        h1 {
+            color: var(--accent-glow);
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* 心情選擇區塊 */
+        .mood-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .mood-section h2 {
+            color: var(--accent-purple);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .mood-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        .mood-btn {
+            background-color: #121016;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: bold;
+        }
+
+        .mood-btn:hover, .mood-btn.active {
+            background-color: var(--accent-purple);
+            color: #fff;
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        /* 療癒結果顯示卡片 */
+        .result-panel {
+            display: none;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-title {
+            color: var(--accent-glow);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .result-content {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            background-color: #121016;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* AI 提示詞區塊 */
+        .prompt-section {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .prompt-section h3 {
+            color: var(--accent-glow);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .prompt-container {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .prompt-box {
+            background-color: #121016;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px 120px 15px 20px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #d4af37;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: var(--border-color);
+            color: var(--accent-glow);
+            border: 1px solid var(--accent-glow);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .copy-btn:hover {
+            background-color: var(--accent-glow);
+            color: var(--bg-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🌙 Midnight Healing Lounge</h1>
+            <p class="subtitle">深夜心靈療癒與沉浸式選片館 ☕✨</p>
+        </header>
+
+        <!-- 心情選擇區 -->
+        <div class="mood-section">
+            <h2>✨ 此刻的妳，心裡是什麼感覺呢？</h2>
+            <div class="mood-grid">
+                <button class="mood-btn" onclick="selectMood('tired')">🌧️ 疲憊想放空</button>
+                <button class="mood-btn" onclick="selectMood('anxious')">🌀 有點小焦慮</button>
+                <button class="mood-btn" onclick="selectMood('cozy')">☕ 享受孤獨平靜</button>
+                <button class="mood-btn" onclick="selectMood('touched')">💫 需要被同理感動</button>
+            </div>
+        </div>
+
+        <!-- 療癒建議顯示面板 -->
+        <div id="resultPanel" class="result-panel">
+            <div class="result-title" id="resultTitle">🌿 療癒處方箋</div>
+            <div class="result-content" id="resultText">
+                請點選上方的心情，為妳開啟專屬的深夜療癒指南...
+            </div>
+        </div>
+
+        <!-- AI 專屬互動提示詞 -->
+        <div class="prompt-section">
+            <h3>🤖 AI 深夜心靈導師指令 (Prompt)</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 10px;">複製下方指令，隨時跟 AI 訴說妳的心情，獲取專屬的療癒選片與安慰：</p>
+            <div class="prompt-container">
+                <button class="copy-btn" onclick="copyPrompt('healingPrompt', this)">一鍵複製指令</button>
+                <div class="prompt-box" id="healingPrompt">你現在是一位溫柔、充滿同理心且懂心靈療癒的深夜導師。當使用者向你傾訴今天的心情或疲憊時，請用溫暖、不說教且充滿安撫力量的語氣傾聽，並為其推薦一部暖心電影或動畫（例如類似《腦筋急轉彎》或溫馨小品），給予溫柔的擁抱與力量。</div>
+            </div>
+        </div>
+
+        <footer>
+            &copy; 2026 Midnight Healing Lounge. All Rights Reserved. 🌙
+        </footer>
+    </div>
+
+    <script>
+        const healingData = {
+            tired: {
+                title: "🌧️ 疲憊想放空の療癒處方",
+                text: "辛苦囉！今天真的累了吧？允許自己什麼都不做、好好躺平就是對自己最好的照顧。推薦妳觀賞動畫《腦筋急轉彎》，擁抱偶爾的憂傷與空白，也是情緒重啟的一種超能力。泡杯熱茶，今晚早點休息吧！ ☕"
+            },
+            anxious: {
+                title: "🌀 安定心神的溫柔擁抱",
+                text: "當思緒轉個不停時，試著把注意力拉回呼吸。深吸一口氣，再緩緩吐出。推薦妳聽點輕柔的 Lofi 爵士樂，或者看一部步調緩慢的療癒系電影。事情會一件一件順利解決的，妳已經做得夠好了。"
+            },
+            cozy: {
+                title: "☕ 享受獨處的深夜微光",
+                text: "孤獨不是寂寞，而是找回自己的美好時刻。點一盞柔和的小燈，享受這段安靜的時光。推薦閱讀一本輕鬆的小品，或者一邊品嚐喜歡的甜點，享受純粹屬於妳的療癒儀式感。"
+            },
+            touched: {
+                title: "💫 溫暖同理的感動時刻",
+                text: "內心柔軟的人，往往也最懂得溫柔對待世界。如果今天心裡感觸很多，就讓這些情緒自然流動吧。推薦看一部溫馨感人的經典作品，讓淚水或微笑好好洗滌心靈，明天的妳會閃閃發光。"
+            }
+        };
+
+        function selectMood(moodKey) {
+            // 切換按鈕 active 狀態
+            document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 顯示對應內容
+            const panel = document.getElementById('resultPanel');
+            const titleEl = document.getElementById('resultTitle');
+            const textEl = document.getElementById('resultText');
+
+            const data = healingData[moodKey];
+            titleEl.innerText = data.title;
+            textEl.innerText = data.text;
+
+            panel.classList.add('active');
+        }
+
+        function copyPrompt(elementId, btn) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerText;
+                btn.innerText = "已複製成功！";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
