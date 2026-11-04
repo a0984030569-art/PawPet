@@ -7,14 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #faf7f2;
+            --bg-color: #fcf9f5;
             --card-bg: #ffffff;
-            --accent-color: #b8865b;
-            --accent-hover: #9c6c46;
+            --accent-color: #9e7b5f;
+            --accent-soft: #eedecc;
             --text-main: #3d352a;
             --text-muted: #8c8275;
-            --border-color: #ebdccc;
-            --shadow: 0 10px 30px rgba(184, 134, 91, 0.08);
+            --border-color: #f0e6dc;
+            --shadow: 0 20px 40px rgba(158, 123, 95, 0.06);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -22,7 +23,6 @@
             margin: 0;
             padding: 0;
             font-family: 'Zen Maru Gothic', sans-serif;
-            transition: all 0.3s ease;
         }
 
         body {
@@ -32,29 +32,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* 導覽列 */
         nav {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 20px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 35px 30px;
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--accent-color);
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 30px;
         }
 
         .nav-links a {
@@ -62,17 +63,35 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             font-weight: 500;
+            position: relative;
+            padding-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
         }
 
         .nav-links a.active, .nav-links a:hover {
             color: var(--accent-color);
         }
 
+        .nav-links a.active::after, .nav-links a:hover::after {
+            width: 100%;
+        }
+
         /* 主容器 */
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             width: 100%;
-            padding: 40px 20px;
+            padding: 20px 30px 60px 30px;
         }
 
         /* 區塊標題 */
@@ -80,58 +99,66 @@
             text-align: center;
             color: var(--accent-color);
             font-size: 1.8rem;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .section-desc {
             text-align: center;
             color: var(--text-muted);
             font-size: 1rem;
-            line-height: 1.7;
-            margin-bottom: 40px;
+            line-height: 1.8;
+            margin-bottom: 45px;
         }
 
         /* 品牌故事卡片 */
         .story-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 40px;
+            border-radius: 28px;
+            padding: 45px 40px;
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            margin-bottom: 45px;
         }
 
         .story-card h2 {
             color: var(--accent-color);
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+            font-size: 1.35rem;
+            margin-bottom: 18px;
+            font-weight: 700;
         }
 
         .story-card p {
             color: var(--text-muted);
             font-size: 0.98rem;
-            line-height: 1.8;
+            line-height: 1.9;
             margin-bottom: 15px;
+        }
+
+        .story-card p:last-child {
+            margin-bottom: 0;
         }
 
         /* 每月寫真輪播區 */
         .slider-section {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
+            border-radius: 28px;
+            padding: 40px;
             box-shadow: var(--shadow);
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             text-align: center;
         }
 
         .photo-slider {
             width: 100%;
-            height: 380px;
+            height: 420px;
             position: relative;
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 20px;
             margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
         }
 
         .photo-slide {
@@ -142,17 +169,17 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.2s ease-in-out;
         }
 
         .photo-slide.active {
             opacity: 1;
         }
 
-        /* 美容前後對比區 */
+        /* 美容前後對比網格 */
         .comparison-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 40px;
         }
@@ -160,36 +187,45 @@
         .comparison-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            padding: 20px;
+            padding: 24px;
             text-align: center;
+            transition: var(--transition);
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-soft);
         }
 
         .comparison-img {
             width: 100%;
             height: auto;
-            border-radius: 12px;
-            margin-bottom: 15px;
+            border-radius: 16px;
+            margin-bottom: 18px;
         }
 
         .comparison-card h3 {
             color: var(--accent-color);
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 8px;
+            font-weight: 700;
         }
 
         .comparison-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.92rem;
+            line-height: 1.6;
         }
 
         footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
             font-size: 0.85rem;
+            letter-spacing: 1px;
             border-top: 1px solid var(--border-color);
             width: 100%;
         }
@@ -217,16 +253,16 @@
 
         <!-- 每月主題寫真輪播區 -->
         <div class="slider-section">
-            <h2 style="color: var(--accent-color); margin-bottom: 10px;">📸 大美容專屬：每月主題萌寵寫真</h2>
-            <p class="section-desc" style="margin-bottom: 20px;">凡預約大美容服務，即可免費獲得當月限定佈景寫真一組！每 3 秒欣賞我們的可愛寫真花絮：</p>
+            <h2 style="color: var(--accent-color); margin-bottom: 10px; font-size: 1.5rem;">📸 大美容專屬：每月主題萌寵寫真</h2>
+            <p class="section-desc" style="margin-bottom: 25px;">凡預約大美容服務，即可免費獲得當月限定佈景寫真一組！欣賞我們的可愛寫真花絮：</p>
             
             <div class="photo-slider">
-                <!-- 請將三張獨立寫真照放在同個資料夾：about-spring.jpg, about-summer.jpg, about-autumn.jpg -->
-                <img class="photo-slide active" src="about-spring.jpg" alt="春季櫻花主題寫真">
-                <img class="photo-slide" src="about-summer.jpg" alt="夏季向日葵主題寫真">
-                <img class="photo-slide" src="about-autumn.jpg" alt="秋季南瓜主題寫真">
+                <!-- 修正副檔名為 .jfif 對應妳上傳的檔案 -->
+                <img class="photo-slide active" src="about-spring.jfif" alt="春季櫻花主題寫真">
+                <img class="photo-slide" src="about-summer.jfif" alt="夏季向日葵主題寫真">
+                <img class="photo-slide" src="about-autumn.jfif" alt="秋季南瓜主題寫真">
             </div>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">每個月更換全新風格佈景，記錄寶貝最萌的可愛瞬間 ✨</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; letter-spacing: 0.5px;">每個月更換全新風格佈景，記錄寶貝最萌的可愛瞬間 ✨</p>
         </div>
 
         <!-- 美容前後對比區 -->
@@ -236,21 +272,24 @@
         <div class="comparison-grid">
             <!-- 1. 博美 -->
             <div class="comparison-card">
-                <img class="comparison-img" src="pom-before-after.jpg" alt="博美犬美容前後對比">
+                <!-- 修正副檔名為 .jfif -->
+                <img class="comparison-img" src="pom-before-after.jfif" alt="博美犬美容前後對比">
                 <h3>博美犬｜精緻圓潤泰迪熊裝</h3>
                 <p>修整豐厚毛流，打造如棉花糖般圓滾滾的可愛萌感。</p>
             </div>
 
             <!-- 2. 貴賓 -->
             <div class="comparison-card">
-                <img class="comparison-img" src="poodle-before-after.jpg" alt="貴賓犬美容前後對比">
+                <!-- 修正副檔名為 .jfif -->
+                <img class="comparison-img" src="poodle-before-after.jfif" alt="貴賓犬美容前後對比">
                 <h3>貴賓犬｜俏皮日系貴賓剪</h3>
                 <p>整理捲曲毛髮，展現立體且清爽的時尚造型。</p>
             </div>
 
             <!-- 3. 柯基 -->
             <div class="comparison-card">
-                <img class="comparison-img" src="corgi-before-after.jpg" alt="柯基犬美容前後對比">
+                <!-- 修正副檔名為 .jfif -->
+                <img class="comparison-img" src="corgi-before-after.jfif" alt="柯基犬美容前後對比">
                 <h3>柯基犬｜深層護理與完美順毛</h3>
                 <p>徹底清除廢毛與深層洗護，讓背部毛髮閃耀健康光澤。</p>
             </div>
@@ -258,7 +297,7 @@
     </div>
 
     <footer>
-        &copy; 2026 Paw Pet Spa. All Rights Reserved. 🐾
+        &copy; 2026 Paw Pet Spa. All Rights Reserved. 🤎
     </footer>
 
     <script>
