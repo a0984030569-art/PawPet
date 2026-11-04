@@ -99,7 +99,7 @@
             width: 100%;
         }
 
-        /* 主容器與表單區塊 */
+        /* 主容器與區塊 */
         .container {
             max-width: 1000px;
             width: 100%;
@@ -123,6 +123,58 @@
             margin-bottom: 45px;
         }
 
+        /* 價格表卡片 */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .price-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 35px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-soft);
+        }
+
+        .price-card h3 {
+            color: var(--accent-color);
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .price-card .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .price-card ul {
+            list-style: none;
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 2;
+        }
+
+        .price-card ul li::before {
+            content: "✓ ";
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* 預約表單卡片容器 */
         .contact-container {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -312,11 +364,37 @@
         </ul>
     </nav>
 
-    <!-- 預約與聯絡表單主體 -->
+    <!-- 預約與聯絡主體 -->
     <div class="container">
-        <h2 class="section-title">🤎 專屬寵愛與預約諮詢</h2>
-        <p class="section-desc">填寫下方表單預約專屬時段，我們將盡快為您安排：</p>
+        <!-- 透明化價目表 -->
+        <h2 class="section-title">🤎 專屬寵愛服務與透明價目</h2>
+        <p class="section-desc">依寶貝的體型與需求提供最專業的精緻護理，給予全方位的溫柔呵護：</p>
 
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>精緻基礎洗護</h3>
+                <div class="price">NT$ 600 起</div>
+                <ul>
+                    <li>低敏天然洗劑雙效洗淨</li>
+                    <li>溫柔手感吹毛與梳理</li>
+                    <li>基礎指甲修剪與清耳</li>
+                    <li>擠肛門腺與足底毛修整</li>
+                </ul>
+            </div>
+
+            <div class="price-card">
+                <h3>頂級造型大美容</h3>
+                <div class="price">NT$ 1,200 起</div>
+                <ul>
+                    <li>包含完整基礎洗護服務</li>
+                    <li>資深美容師精緻造型剪毛</li>
+                    <li>免費贈送當月主題萌寵寫真</li>
+                    <li>自由遊戲等待區開心放風</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 預約與聯絡表單 -->
         <div class="contact-container">
             <h1>線上預約與諮詢表單</h1>
             <p class="subtitle">填寫以下寶貝與您的聯絡資訊，送出後訊息將直接發送到管理員信箱！</p>
