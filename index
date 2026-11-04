@@ -35,7 +35,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
         }
 
@@ -77,7 +77,7 @@
 
         .mood-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 12px;
         }
 
@@ -85,7 +85,7 @@
             background-color: #121016;
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            padding: 12px 15px;
+            padding: 14px 15px;
             border-radius: 12px;
             cursor: pointer;
             font-size: 0.95rem;
@@ -99,13 +99,13 @@
             transform: translateY(-2px);
         }
 
-        /* 療癒結果顯示卡片 */
+        /* 療癒結果顯示面板 */
         .result-panel {
             display: none;
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 30px;
+            padding: 35px;
             box-shadow: var(--shadow);
             margin-bottom: 30px;
             animation: fadeIn 0.5s ease;
@@ -122,22 +122,41 @@
 
         .result-title {
             color: var(--accent-glow);
-            font-size: 1.3rem;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
         }
 
-        .result-content {
-            line-height: 1.8;
-            font-size: 1rem;
-            color: var(--text-main);
-            margin-bottom: 20px;
+        .prescription-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .prescription-card {
             background-color: #121016;
+            border: 1px solid var(--border-color);
             padding: 20px;
             border-radius: 12px;
-            border: 1px solid var(--border-color);
+        }
+
+        .prescription-card h4 {
+            color: var(--accent-purple);
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .prescription-card p {
+            color: var(--text-main);
+            font-size: 1rem;
+            line-height: 1.7;
         }
 
         /* AI 提示詞區塊 */
@@ -218,11 +237,22 @@
             </div>
         </div>
 
-        <!-- 療癒建議顯示面板 -->
+        <!-- 療癒結果顯示面板 -->
         <div id="resultPanel" class="result-panel">
-            <div class="result-title" id="resultTitle">🌿 療癒處方箋</div>
-            <div class="result-content" id="resultText">
-                請點選上方的心情，為妳開啟專屬的深夜療癒指南...
+            <div class="result-title" id="resultTitle">🌿 專屬深夜療癒處方箋</div>
+            <div class="prescription-grid">
+                <div class="prescription-card">
+                    <h4>🎥 推薦療癒選片 / 動畫</h4>
+                    <p id="movieText">-</p>
+                </div>
+                <div class="prescription-card">
+                    <h4>🎵 深夜放鬆氛圍提案</h4>
+                    <p id="musicText">-</p>
+                </div>
+                <div class="prescription-card">
+                    <h4>✨ 寫給妳的深夜解憂金句</h4>
+                    <p id="quoteText">-</p>
+                </div>
             </div>
         </div>
 
@@ -245,35 +275,45 @@
         const healingData = {
             tired: {
                 title: "🌧️ 疲憊想放空の療癒處方",
-                text: "辛苦囉！今天真的累了吧？允許自己什麼都不做、好好躺平就是對自己最好的照顧。推薦妳觀賞動畫《腦筋急轉彎》，擁抱偶爾的憂傷與空白，也是情緒重啟的一種超能力。泡杯熱茶，今晚早點休息吧！ ☕"
+                movie: "《腦筋急轉彎 (Inside Out)》—— 擁抱偶爾的憂傷與空白，允許自己停下來，也是一種前進。",
+                music: "輕柔舒緩的 Lofi Piano（搭配一杯熱牛奶或無咖啡因花草茶）",
+                quote: "「今天真的辛苦囉！不需要隨時隨地都保持完美，把燈調暗、好好睡一覺，世界明天依然會等妳。」"
             },
             anxious: {
                 title: "🌀 安定心神的溫柔擁抱",
-                text: "當思緒轉個不停時，試著把注意力拉回呼吸。深吸一口氣，再緩緩吐出。推薦妳聽點輕柔的 Lofi 爵士樂，或者看一部步調緩慢的療癒系電影。事情會一件一件順利解決的，妳已經做得夠好了。"
+                movie: "《靈魂急轉彎 (Soul)》—— 火花不是人生目標，用心感受當下微風吹過的感覺，妳就已經很有價值了。",
+                music: "大自然雨聲白噪音 / 療癒系大提琴演奏曲",
+                quote: "「焦慮的時候，把注意力放回呼吸。吸氣、吐氣，事情會一件一件順利解決的，別怕。」"
             },
             cozy: {
                 title: "☕ 享受獨處的深夜微光",
-                text: "孤獨不是寂寞，而是找回自己的美好時刻。點一盞柔和的小燈，享受這段安靜的時光。推薦閱讀一本輕鬆的小品，或者一邊品嚐喜歡的甜點，享受純粹屬於妳的療癒儀式感。"
+                movie: "《小森林》—— 細細品味生活中的一粥一飯、一草一木，把步調慢下來，享受純粹的靜謐。",
+                music: "法國咖啡廳輕爵士 (Cafe Jazz) 或溫暖木吉他指彈",
+                quote: "「孤獨是最好的奢侈品。在這段只屬於妳的深夜時光裡，跟自己好好對話吧。」"
             },
             touched: {
                 title: "💫 溫暖同理的感動時刻",
-                text: "內心柔軟的人，往往也最懂得溫柔對待世界。如果今天心裡感觸很多，就讓這些情緒自然流動吧。推薦看一部溫馨感人的經典作品，讓淚水或微笑好好洗滌心靈，明天的妳會閃閃發光。"
+                movie: "《奇跡男孩 (Wonder)》—— 當世界對妳不夠溫柔時，選擇用善良與堅定擁抱自己的內心。",
+                music: "溫暖柔和的吉他伴奏與輕聲呢喃曲風",
+                quote: "「內心柔軟的人，總是擁有最強大的力量。讓情緒自然流動，明天的妳會閃閃發光。」"
             }
         };
 
         function selectMood(moodKey) {
-            // 切換按鈕 active 狀態
             document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // 顯示對應內容
             const panel = document.getElementById('resultPanel');
             const titleEl = document.getElementById('resultTitle');
-            const textEl = document.getElementById('resultText');
+            const movieEl = document.getElementById('movieText');
+            const musicEl = document.getElementById('musicText');
+            const quoteEl = document.getElementById('quoteText');
 
             const data = healingData[moodKey];
-            titleEl.innerText = data.title;
-            textEl.innerText = data.text;
+            titleEl.innerHTML = `🌿 ${data.title}`;
+            movieEl.innerText = data.movie;
+            musicEl.innerText = data.music;
+            quoteEl.innerText = data.quote;
 
             panel.classList.add('active');
         }
