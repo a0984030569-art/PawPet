@@ -176,7 +176,7 @@
             opacity: 1;
         }
 
-        /* 美容前後對比網格 */
+        /* 美容前後對比網格 - 修正為 2x2 排版 */
         .comparison-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -205,6 +205,7 @@
             height: auto;
             border-radius: 16px;
             margin-bottom: 18px;
+            object-fit: cover; /* 確保圖片比例統一 */
         }
 
         .comparison-card h3 {
@@ -257,7 +258,7 @@
             <p class="section-desc" style="margin-bottom: 25px;">凡預約大美容服務，即可免費獲得當月限定佈景寫真一組！欣賞我們的可愛寫真花絮：</p>
             
             <div class="photo-slider">
-                <!-- 修正副檔名為 .jfif 對應妳上傳的檔案 -->
+                <!-- 確保副檔名為 .jfif 對應妳上傳的檔案 -->
                 <img class="photo-slide active" src="about-spring.jfif" alt="春季櫻花主題寫真">
                 <img class="photo-slide" src="about-summer.jfif" alt="夏季向日葵主題寫真">
                 <img class="photo-slide" src="about-autumn.jfif" alt="秋季南瓜主題寫真">
@@ -265,14 +266,13 @@
             <p style="color: var(--text-muted); font-size: 0.9rem; letter-spacing: 0.5px;">每個月更換全新風格佈景，記錄寶貝最萌的可愛瞬間 ✨</p>
         </div>
 
-        <!-- 美容前後對比區 -->
+        <!-- 美容前後對比區 - 調整為 2x2 排版 -->
         <h2 class="section-title">✂️ 職人手藝・完美變身對比</h2>
         <p class="section-desc">看看寶貝們打理前後的精緻轉變，從蓬鬆自然到造型感十足的完美呈現：</p>
 
         <div class="comparison-grid">
             <!-- 1. 博美 -->
             <div class="comparison-card">
-                <!-- 修正副檔名為 .jfif -->
                 <img class="comparison-img" src="pom-before-after.jfif" alt="博美犬美容前後對比">
                 <h3>博美犬｜精緻圓潤泰迪熊裝</h3>
                 <p>修整豐厚毛流，打造如棉花糖般圓滾滾的可愛萌感。</p>
@@ -280,7 +280,6 @@
 
             <!-- 2. 貴賓 -->
             <div class="comparison-card">
-                <!-- 修正副檔名為 .jfif -->
                 <img class="comparison-img" src="poodle-before-after.jfif" alt="貴賓犬美容前後對比">
                 <h3>貴賓犬｜俏皮日系貴賓剪</h3>
                 <p>整理捲曲毛髮，展現立體且清爽的時尚造型。</p>
@@ -288,10 +287,16 @@
 
             <!-- 3. 柯基 -->
             <div class="comparison-card">
-                <!-- 修正副檔名為 .jfif -->
                 <img class="comparison-img" src="corgi-before-after.jfif" alt="柯基犬美容前後對比">
                 <h3>柯基犬｜深層護理與完美順毛</h3>
                 <p>徹底清除廢毛與深層洗護，讓背部毛髮閃耀健康光澤。</p>
+            </div>
+
+            <!-- 4. 比熊 (新增的卡片) -->
+            <div class="comparison-card">
+                <img class="comparison-img" src="bichon-before-after.jfif" alt="比熊犬美容前後對比">
+                <h3>比熊犬｜雪白蓬鬆棉花糖裝</h3>
+                <p>修剪捲翹毛髮，展現比熊招牌的圓潤可愛與雪白質感。</p>
             </div>
         </div>
     </div>
