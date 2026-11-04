@@ -404,28 +404,28 @@
             </div>
             
             <form id="ajax-form">
-                <!-- Web3Forms 設定：將信件指定寄到妳的 Gmail -->
-                <input type="hidden" name="access_key" value="7e54117b-6c4b-4f93-876a-54316d3f82f0">
-                <input type="hidden" name="subject" value="【Paw Pet Spa】收到新的預約與諮詢訊息！">
+                <!-- FormSubmit 隱藏欄位設定 -->
+                <input type="hidden" name="_subject" value="【Paw Pet Spa】收到新的預約與諮詢訊息！">
+                <input type="hidden" name="_template" value="table">
 
                 <div class="form-group">
                     <label for="ownerName">毛爸/毛媽大名</label>
-                    <input type="text" id="ownerName" name="毛爸毛媽大名" required placeholder="例如：林小姐">
+                    <input type="text" id="ownerName" name="ownerName" required placeholder="例如：林小姐">
                 </div>
 
                 <div class="form-group">
                     <label for="phone">連絡電話</label>
-                    <input type="tel" id="phone" name="連絡電話" required placeholder="例如：0912-345-678">
+                    <input type="tel" id="phone" name="phone" required placeholder="例如：0912-345-678">
                 </div>
 
                 <div class="form-group">
                     <label for="petInfo">毛孩名字與品種</label>
-                    <input type="text" id="petInfo" name="毛孩與品種" required placeholder="例如：巧克力 / 博美犬">
+                    <input type="text" id="petInfo" name="petInfo" required placeholder="例如：巧克力 / 博美犬">
                 </div>
 
                 <div class="form-group">
                     <label for="serviceType">預約服務項目</label>
-                    <select id="serviceType" name="預約服務項目" required>
+                    <select id="serviceType" name="serviceType" required>
                         <option value="">請選擇服務項目</option>
                         <option value="精緻基礎洗護">精緻基礎洗護 (NT$ 600起)</option>
                         <option value="頂級造型大美容">頂級造型大美容（含當月主題寫真，NT$ 1,200起）</option>
@@ -434,12 +434,12 @@
 
                 <div class="form-group">
                     <label for="date">希望預約日期</label>
-                    <input type="date" id="date" name="預約日期" required>
+                    <input type="date" id="date" name="date" required>
                 </div>
 
                 <div class="form-group">
                     <label for="message">備註或寶貝特殊需求（個性、過敏原等）</label>
-                    <textarea id="message" name="備註需求" rows="4" placeholder="例如：個性溫和，對特定洗劑較敏感..."></textarea>
+                    <textarea id="message" name="message" rows="4" placeholder="例如：個性溫和，對特定洗劑較敏感..."></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submit-btn">確認送出預約諮詢</button>
@@ -475,18 +475,18 @@
 
             const formData = new FormData(form);
 
-            // 改用 Web3Forms 穩定的 API 傳送
-            fetch("https://api.web3forms.com/submit", {
+            // 透過 FormSubmit 發送到妳的 Gmail，同時觸發可愛彈窗
+            fetch("https://formsubmit.co/ajax/a0984030569@gmail.com", {
                 method: "POST",
                 body: formData
             })
-            .then(async (response) => {
-                let json = await response.json();
-                if (response.status == 200) {
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
                     modalOverlay.classList.add('active'); // 彈出可愛視窗
                     form.reset();
                 } else {
-                    alert("❌ 發送失敗：" + json.message);
+                    alert("❌ 發送失敗，請稍後再試。");
                 }
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = "1";
