@@ -7,14 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #faf7f2;
+            --bg-color: #fcf9f5;
             --card-bg: #ffffff;
-            --accent-color: #b8865b;
-            --accent-hover: #9c6c46;
+            --accent-color: #9e7b5f;
+            --accent-soft: #eedecc;
             --text-main: #3d352a;
             --text-muted: #8c8275;
-            --border-color: #ebdccc;
-            --shadow: 0 10px 30px rgba(184, 134, 91, 0.08);
+            --border-color: #f0e6dc;
+            --shadow: 0 20px 40px rgba(158, 123, 95, 0.06);
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -22,7 +23,6 @@
             margin: 0;
             padding: 0;
             font-family: 'Zen Maru Gothic', sans-serif;
-            transition: all 0.3s ease;
         }
 
         body {
@@ -32,29 +32,30 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* 導覽列 */
+        /* 頂部極簡質感導覽列 */
         nav {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 20px;
-            border-bottom: 1px solid var(--border-color);
+            padding: 35px 30px;
         }
 
         .logo {
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--accent-color);
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 30px;
         }
 
         .nav-links a {
@@ -62,32 +63,50 @@
             color: var(--text-muted);
             font-size: 0.95rem;
             font-weight: 500;
+            position: relative;
+            padding-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
         }
 
         .nav-links a.active, .nav-links a:hover {
             color: var(--accent-color);
         }
 
-        /* 主容器 */
-        .container {
-            max-width: 900px;
+        .nav-links a.active::after, .nav-links a:hover::after {
             width: 100%;
-            padding: 40px 20px;
         }
 
-        /* Hero 環境輪播區 */
+        /* 主容器 */
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            padding: 20px 30px 60px 30px;
+        }
+
+        /* 高級感 Hero 視覺區 */
         .hero {
             background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 28px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
         }
 
         .hero-slider {
             width: 100%;
-            height: 380px;
+            height: 440px;
             position: relative;
             overflow: hidden;
         }
@@ -100,7 +119,7 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1.2s ease-in-out;
         }
 
         .hero-slide.active {
@@ -108,21 +127,23 @@
         }
 
         .hero-content {
-            padding: 40px;
+            padding: 50px 40px;
             text-align: center;
         }
 
         .hero-content h1 {
             color: var(--accent-color);
             font-size: 2.2rem;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .hero-content p {
             color: var(--text-muted);
             font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
+            line-height: 1.8;
+            margin-bottom: 30px;
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
@@ -131,52 +152,65 @@
         .btn {
             background-color: var(--accent-color);
             color: #fff;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 14px 36px;
+            border-radius: 30px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 500;
             font-size: 0.95rem;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(158, 123, 95, 0.2);
             display: inline-block;
+            transition: var(--transition);
         }
 
         .btn:hover {
-            background-color: var(--accent-hover);
+            background-color: #87674e;
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(158, 123, 95, 0.3);
         }
 
-        /* 特色亮點卡片 */
+        /* 精緻特色亮點網格 */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
             margin-bottom: 40px;
         }
 
         .feature-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
+            border-radius: 24px;
+            padding: 35px 30px;
             box-shadow: var(--shadow);
-            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-soft);
         }
 
         .feature-card h3 {
             color: var(--accent-color);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
 
         .feature-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
+        /* 質感頁尾 */
         footer {
             text-align: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
             font-size: 0.85rem;
+            letter-spacing: 1px;
             border-top: 1px solid var(--border-color);
             width: 100%;
         }
@@ -198,10 +232,10 @@
         <!-- Hero 環境輪播區 -->
         <div class="hero">
             <div class="hero-slider">
-                <!-- 請將圖片分別命名並放在同個資料夾：hero-grooming.jpg, hero-playarea.jpg, hero-relaxation.jpg -->
-                <img class="hero-slide active" src="hero-grooming.jpg" alt="專業美容區">
-                <img class="hero-slide" src="hero-playarea.jpg" alt="不關籠遊戲等待區">
-                <img class="hero-slide" src="hero-relaxation.jpg" alt="溫馨休息角落">
+                <!-- 修正副檔名為 .jfif 對應妳上傳的檔案 -->
+                <img class="hero-slide active" src="hero-grooming.jfif" alt="專業美容區">
+                <img class="hero-slide" src="hero-playarea.jfif" alt="不關籠遊戲等待區">
+                <img class="hero-slide" src="hero-relaxation.jfif" alt="溫馨休息角落">
             </div>
             <div class="hero-content">
                 <h1>給寶貝最溫柔的寵愛時光 🤎</h1>
@@ -228,7 +262,7 @@
     </div>
 
     <footer>
-        &copy; 2026 Paw Pet Spa. All Rights Reserved. 🐾
+        &copy; 2026 Paw Pet Spa. All Rights Reserved. 🤎
     </footer>
 
     <script>
