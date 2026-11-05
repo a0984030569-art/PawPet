@@ -264,81 +264,6 @@
             box-shadow: 0 15px 25px rgba(158, 123, 95, 0.3);
         }
 
-        /* 🌸 可愛彈跳視窗 (Modal) 樣式 */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(61, 53, 42, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-box {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 28px;
-            padding: 40px 30px;
-            max-width: 420px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(158, 123, 95, 0.15);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .modal-box h3 {
-            color: var(--accent-color);
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
-
-        .modal-box p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
-        }
-
-        .modal-btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 12px 35px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .modal-btn:hover {
-            background-color: var(--accent-hover);
-        }
-
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -392,21 +317,22 @@
             </div>
         </div>
 
-        <!-- 預約表單 -->
+        <!-- 預水表單：標準表單提交，絕對安全且能直達信箱 -->
         <div class="contact-container">
             <h1>線上預約與諮詢表單</h1>
-            <p class="subtitle">填寫以下寶貝與您的聯絡資訊，送出後訊息將直接發送到管理員信箱！</p>
+            <p class="subtitle">填寫以下寶貝與您的聯絡資訊，送出後將直接發送到管理員信箱！</p>
 
             <div class="notice-box">
                 💡 <strong>貼心提醒：</strong>本店採全預約制，為了維護所有毛寶貝與工作人員的安全，<strong>恕不接待會咬人的狗狗</strong>。所有寶貝在等待接回期間皆享有全程不關籠的自由遊戲時光！
             </div>
             
-            <!-- 使用安全的 HTTPS action 傳送，完全不需要註冊任何帳號 -->
             <form action="https://formsubmit.co/a0984030569@gmail.com" method="POST">
-                <!-- 關閉奇怪的驗證畫面，直接送達 -->
+                <!-- 略過驗證、直接以表格格式寄出 -->
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_subject" value="【Paw Pet Spa】收到新的預約與諮詢訊息！">
                 <input type="hidden" name="_template" value="table">
+                <!-- 提交成功後自動導回妳的網頁 -->
+                <input type="hidden" name="_next" value="https://a0984030569-art.github.io/PawPet/contact.html">
 
                 <div class="form-group">
                     <label for="ownerName">毛爸/毛媽大名</label>
